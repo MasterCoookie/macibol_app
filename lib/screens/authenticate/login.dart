@@ -56,9 +56,10 @@ class _LoginState extends State<Login> {
               SizedBox(height: 20),
               TextFormField(
                 decoration: textInputDecor.copyWith(hintText: 'password'),
+                obscureText: true,
                 validator: (val) => (val.length < 8) ? 'Enter valid password' : null,
                 onChanged: (val) {
-                  setState(() => email = val);
+                  setState(() => password = val);
                 },
               ),
               ElevatedButton(
@@ -66,8 +67,7 @@ class _LoginState extends State<Login> {
                 style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white)),
                 onPressed: () async {
                   if(_formKey.currentState.validate()) {
-                    // TODO - actual sign in
-                    dynamic result = await _auth.signInAnon();
+                    dynamic result = await _auth.loginWithEmailPwd(email, password);
                     if(result == null) {
                       print('err');
                     }
