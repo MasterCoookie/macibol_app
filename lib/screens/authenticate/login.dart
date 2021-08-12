@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:macibol/services/auth.dart';
+import 'package:macibol/constants.dart';
 
 class Login extends StatefulWidget {
 
@@ -19,6 +20,9 @@ class _LoginState extends State<Login> {
 
   final AuthService _auth = AuthService();
 
+  String email;
+  String password;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,22 +41,41 @@ class _LoginState extends State<Login> {
       ),
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
-        child: Column(
-          children: <Widget>[
-            ElevatedButton(
-              child: Text('SignIn', style: TextStyle(color: Colors.black)),
-              style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white)),
-              onPressed: () async {
-                // if(_formKey.currentState.validate()) {
-                  // TODO - actual sign in
-                  dynamic result = await _auth.signInAnon();
-                  if(result == null) {
-                    print('err');
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: <Widget>[
+              SizedBox(height: 20),
+              TextFormField(
+                decoration: textInputDecor.copyWith(hintText: 'email'),
+                validator: (val) => val.isEmpty ? 'Enter an email' : null,
+                onChanged: (val) {
+                  setState(() => email = val);
+                },
+              ),
+              SizedBox(height: 20),
+              TextFormField(
+                decoration: textInputDecor.copyWith(hintText: 'password'),
+                validator: (val) => (val.length < 8) ? 'Enter valid password' : null,
+                onChanged: (val) {
+                  setState(() => email = val);
+                },
+              ),
+              ElevatedButton(
+                child: Text('SignIn', style: TextStyle(color: Colors.black)),
+                style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white)),
+                onPressed: () async {
+                  if(_formKey.currentState.validate()) {
+                    // TODO - actual sign in
+                    dynamic result = await _auth.signInAnon();
+                    if(result == null) {
+                      print('err');
+                    }
                   }
-                }
-              // },
-            )
-          ],
+                },
+              )
+            ],
+          ),
         ),
       )
     );

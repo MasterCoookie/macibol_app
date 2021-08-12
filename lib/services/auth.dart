@@ -55,4 +55,12 @@ class AuthService {
   }
 
   // TODO logout
+  Future logOut() async {
+    try {
+      return await _auth.signOut();
+    } catch(err) {
+      print(err);
+      return null;
+    }
+  }
 }
