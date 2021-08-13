@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:macibol/screens/home/list_creator.dart';
 import 'package:macibol/services/auth.dart';
 
 class Home extends StatefulWidget {
@@ -8,6 +9,15 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+  void _showListCreationPanel() {
+    showModalBottomSheet(context: context, builder: (context) {
+      return Container(
+        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 60),
+        child: ListCreator(),
+      );
+    });
+  }
 
   final AuthService _auth = AuthService();
 
@@ -26,6 +36,15 @@ class _HomeState extends State<Home> {
             onPressed: () async { _auth.logOut(); },
           )
         ],
+      ),
+      body: Container(
+        child: Column(
+          children: [
+            ElevatedButton(
+              child: Text('Nowa Lista Zakupowa'),
+              onPressed: () => _showListCreationPanel(),
+            )
+        ],),
       ),
     );
   }
