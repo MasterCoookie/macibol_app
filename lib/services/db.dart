@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:macibol/models/shopping_list.dart';
 
 class DBService {
 
@@ -16,4 +17,21 @@ class DBService {
       'ownerUid': uid
     });
   }
+
+  List<ShoppingList> _shoppingListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      return ShoppingList(
+        title: doc.get('title'),
+        done: doc.get('done'),
+        aisles: doc.get('aisles') ?? [],
+        ownerUid: doc.get('ownerUid')
+      );
+    }).toList();
+  }
+
+  Stream<List<ShoppingList>> get shoppingLists {
+    var userLists = listCollection.where("ownerUid", isEqualTo: uid);
+    return userLists.snapshots().map(_shoppingListFromSnapshot);
+  }
+
 }
