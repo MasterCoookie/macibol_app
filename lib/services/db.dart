@@ -34,4 +34,8 @@ class DBService {
     return userLists.snapshots().map(_shoppingListFromSnapshot);
   }
 
+  Future deleteShoppingList(String title) async {
+    return await listCollection.doc('$uid-$title').delete();
+  }
+
 }

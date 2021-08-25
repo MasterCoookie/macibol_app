@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:macibol/models/shopping_list.dart';
 import 'package:macibol/models/user.dart';
 import 'package:macibol/screens/home/list_creator.dart';
+import 'package:macibol/screens/home/list_editor.dart';
 import 'package:macibol/screens/home/shopping_lists.dart';
 import 'package:macibol/services/auth.dart';
 import 'package:macibol/services/db.dart';
@@ -25,13 +26,12 @@ class _HomeState extends State<Home> {
   }
 
   final AuthService _auth = AuthService();
-
   
-
   @override
   Widget build(BuildContext context) {
 
     final user = Provider.of<CustomUser>(context);
+    
 
     return StreamProvider<List<ShoppingList>>.value(
       initialData: null,
@@ -43,7 +43,7 @@ class _HomeState extends State<Home> {
           elevation: 0,
           title: Text('Zakupki czekają', style: TextStyle(color: Colors.black)),
           actions: <Widget>[
-            ShoppingLists(),
+            
             TextButton.icon(
               icon: Icon(Icons.exit_to_app, color: Colors.black),
               label: Text('Log Out', style: TextStyle(color: Colors.black)),
@@ -54,6 +54,7 @@ class _HomeState extends State<Home> {
         body: Container(
           child: Column(
             children: [
+              ShoppingLists(),
               ElevatedButton(
                 child: Text('Nowa Lista Zakupowa'),
                 onPressed: () => _showListCreationPanel(),

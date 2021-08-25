@@ -1,7 +1,7 @@
 class ShoppingList {
 
   final String title;
-  final bool done;
+  bool done;
   final List aisles;
   final String ownerUid;
 
