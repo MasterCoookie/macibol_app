@@ -59,13 +59,6 @@ class _ListEditorState extends State<ListEditor> {
                 },
                 onPressed: () {},
               ),SizedBox(height: 20,),
-              ElevatedButton(
-                style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.green[300])),
-                child: Text('Zmień', style: TextStyle(color: Colors.white),),
-                onPressed: () async {
-                  
-                },
-              )
             ],
           ),
         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:macibol/models/user.dart';
+import 'package:macibol/screens/macibols/macibol.dart';
 import 'package:macibol/screens/wrapper.dart';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -20,6 +21,9 @@ class MyApp extends StatelessWidget {
       initialData: null,
       value: AuthService().user,
       child: MaterialApp(
+        routes: {
+          '/macibol': (context) => Macibol()
+        },
         home: Wrapper(),
       ),  
     );

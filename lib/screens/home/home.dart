@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:macibol/models/shopping_list.dart';
 import 'package:macibol/models/user.dart';
 import 'package:macibol/screens/home/list_creator.dart';
-import 'package:macibol/screens/home/list_editor.dart';
 import 'package:macibol/screens/home/shopping_lists.dart';
 import 'package:macibol/services/auth.dart';
 import 'package:macibol/services/db.dart';

@@ -4,8 +4,6 @@ import 'package:macibol/models/shopping_list.dart';
 
 class ShoppingListTile extends StatefulWidget {
 
-  
-
   final ShoppingList shoppingList;
   ShoppingListTile({ this.shoppingList});
 
@@ -32,7 +30,13 @@ class _ShoppingListTileState extends State<ShoppingListTile> {
         margin: EdgeInsets.fromLTRB(20, 6, 20, 0),
         child: ListTile(
           title: Text(widget.shoppingList.title ?? "Nowa lista", style: widget.shoppingList.done ? TextStyle(decoration: TextDecoration.lineThrough) : null,),
-          onTap: () { showListEditorPanel(widget.shoppingList); },
+          onTap: () { Navigator.pushNamed(context, '/macibol', arguments: widget.shoppingList); },
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              IconButton(icon: Icon(Icons.more_vert), onPressed: () => showListEditorPanel(widget.shoppingList),),
+            ],
+          ),
         ),
       ),
     );
