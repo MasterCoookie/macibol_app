@@ -4,9 +4,9 @@ class Product {
 
   final String name;
   final Float price;
-  final String aisleName;
   final bool promo;
   final bool checked;
+  final int quantity;
 
-  Product({ this.name, this.price, this.aisleName, this.promo, this.checked });
+  Product({ this.name, this.price, this.promo, this.checked, this.quantity });
 }

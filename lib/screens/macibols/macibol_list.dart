@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:macibol/loading.dart';
 import 'package:macibol/models/shopping_list.dart';
 import 'package:provider/provider.dart';
+import 'package:macibol/models/aisle.dart';
 
 class MacibolList extends StatefulWidget {
 
@@ -13,10 +15,27 @@ class _MacibolListState extends State<MacibolList> {
   Widget build(BuildContext context) {
 
     final shoppingList = Provider.of<List<ShoppingList>>(context) ?? null;
-    print(shoppingList[0].title);
+    if(shoppingList == null) {
+      return Loading();
+    }
+    ShoppingList singleList = shoppingList[0];
 
     return Container(
-      child: Text("XD", style: TextStyle(color: Colors.black),),
+      child: ListView.builder(
+        padding: EdgeInsets.all(8),
+        itemCount: singleList.aisles.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Card(
+            child: ListTile(
+              leading: CircleAvatar(
+                radius: 25,
+                backgroundColor: Colors.green[400],
+                child: Text(index.toString()),
+              ),
+            ),
+          );
+        },
+      )
     );
   }
 }
