@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:macibol/main.dart';
+import 'package:macibol/models/aisle.dart';
 import 'package:macibol/models/shopping_list.dart';
 import 'package:macibol/screens/home/shopping_lists.dart';
 
@@ -12,7 +13,7 @@ class DBService {
   final CollectionReference listCollection = FirebaseFirestore.instance.collection('shopping_lists');
   final CollectionReference productCollection = FirebaseFirestore.instance.collection('products');
 
-  Future updateListData(String title, bool done, List aisles) async {
+  Future updateListData(String title, bool done, List<Aisle> aisles) async {
     return await listCollection.doc('$uid-$title').set({
       'title': title,
       'done' : done,
@@ -42,9 +43,14 @@ class DBService {
     return userLists.snapshots().map(_shoppingListFromSnapshot);
   }
 
-  Stream<List<ShoppingList>> get shoppingListByTitle {
+  Stream<ShoppingList> get shoppingListByTitle {
     var titleCollection = listCollection.where("title", isEqualTo: title).where("ownerUid", isEqualTo: uid);
-    return titleCollection.snapshots().map(_shoppingListFromSnapshot);
+    var list;
+    titleCollection.snapshots().map((snapshot) {
+      snapshot.docs.map((doc) => list = _singleListFromDoc(doc));
+    });
+    print(list);
+    return list;
   }
 
   Future deleteShoppingList(String title) async {

@@ -20,7 +20,7 @@ class _MacibolState extends State<Macibol> {
     final args = ModalRoute.of(context).settings.arguments as ShoppingList;
     final user = Provider.of<CustomUser>(context);
 
-    return StreamProvider<List<ShoppingList>>.value(
+    return StreamProvider<ShoppingList>.value(
       initialData: null,
       value: DBService(uid: user.uid, title: args.title).shoppingListByTitle,
       child: Scaffold(
@@ -35,7 +35,7 @@ class _MacibolState extends State<Macibol> {
           child: Icon(Icons.add),
           onPressed: () {},
         ),
-        body: MacibolList(),
+        // body: MacibolList(),
       ),
     );
   }

@@ -14,16 +14,15 @@ class _MacibolListState extends State<MacibolList> {
   @override
   Widget build(BuildContext context) {
 
-    final shoppingList = Provider.of<List<ShoppingList>>(context) ?? null;
+    final shoppingList = Provider.of<ShoppingList>(context) ?? null;
     if(shoppingList == null) {
       return Loading();
     }
-    ShoppingList singleList = shoppingList[0];
 
     return Container(
       child: ListView.builder(
         padding: EdgeInsets.all(8),
-        itemCount: singleList.aisles.length,
+        itemCount: shoppingList.aisles.length,
         itemBuilder: (BuildContext context, int index) {
           return Card(
             child: ListTile(

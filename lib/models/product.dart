@@ -3,7 +3,7 @@ import 'dart:ffi';
 class Product {
 
   final String name;
-  final Float price;
+  final double price;
   final bool promo;
   final bool checked;
   final int quantity;
