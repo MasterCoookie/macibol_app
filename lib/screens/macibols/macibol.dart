@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:macibol/models/shopping_list.dart';
 import 'package:macibol/models/user.dart';
+import 'package:macibol/screens/macibols/aisle_creator.dart';
 import 'package:macibol/screens/macibols/macibol_list.dart';
 import 'package:macibol/services/db.dart';
 import 'package:provider/provider.dart';
@@ -13,6 +14,15 @@ class Macibol extends StatefulWidget {
 }
 
 class _MacibolState extends State<Macibol> {
+
+  void _showAisleCreationPanel(ShoppingList shoppingList) {
+    showModalBottomSheet(context: context, builder: (context) {
+      return Container(
+        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 60),
+        child: AisleCreator(shoppingList: shoppingList),
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +43,9 @@ class _MacibolState extends State<Macibol> {
         ),
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
-          onPressed: () {},
+          onPressed: () { _showAisleCreationPanel(args); },
         ),
-        // body: MacibolList(),
+        body: MacibolList(),
       ),
     );
   }

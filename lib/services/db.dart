@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:macibol/main.dart';
-import 'package:macibol/models/aisle.dart';
 import 'package:macibol/models/shopping_list.dart';
 import 'package:macibol/screens/home/shopping_lists.dart';
 
@@ -13,7 +12,7 @@ class DBService {
   final CollectionReference listCollection = FirebaseFirestore.instance.collection('shopping_lists');
   final CollectionReference productCollection = FirebaseFirestore.instance.collection('products');
 
-  Future updateListData(String title, bool done, List<Aisle> aisles) async {
+  Future updateListData(String title, bool done, List<dynamic> aisles) async {
     return await listCollection.doc('$uid-$title').set({
       'title': title,
       'done' : done,
@@ -26,7 +25,7 @@ class DBService {
     return ShoppingList(
         title: document.get('title'),
         done: document.get('done'),
-        aisles: document.get('aisles') ?? [],
+        aisles: document.get('aisles') ?? <dynamic>[],
         ownerUid: document.get('ownerUid')
       );
   }
@@ -47,9 +46,13 @@ class DBService {
     var titleCollection = listCollection.where("title", isEqualTo: title).where("ownerUid", isEqualTo: uid);
     var list;
     titleCollection.snapshots().map((snapshot) {
-      snapshot.docs.map((doc) => list = _singleListFromDoc(doc));
+      print(snapshot);
+      snapshot.docs.map((doc) {
+        list = _singleListFromDoc(doc);
+        print(doc.get('title'));
+      });
     });
-    print(list);
+    // print(titleCollection);
     return list;
   }
 

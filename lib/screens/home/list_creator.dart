@@ -41,7 +41,7 @@ class _ListCreatorState extends State<ListCreator> {
                 child: Text('Stwórz', style: TextStyle(color: Colors.white),),
                 onPressed: () async {
                   if(_formKey.currentState.validate()) {
-                    await DBService(uid: user.uid).updateListData(listName, false, []);
+                    await DBService(uid: user.uid).updateListData(listName, false, <dynamic>[]);
                   }
                   Navigator.pop(context);
                 },

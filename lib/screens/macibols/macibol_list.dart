@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:macibol/loading.dart';
 import 'package:macibol/models/shopping_list.dart';
 import 'package:provider/provider.dart';
-import 'package:macibol/models/aisle.dart';
 
 class MacibolList extends StatefulWidget {
 
