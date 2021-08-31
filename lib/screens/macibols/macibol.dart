@@ -30,7 +30,7 @@ class _MacibolState extends State<Macibol> {
     final args = ModalRoute.of(context).settings.arguments as ShoppingList;
     final user = Provider.of<CustomUser>(context);
 
-    return StreamProvider<ShoppingList>.value(
+    return StreamProvider<List<ShoppingList>>.value(
       initialData: null,
       value: DBService(uid: user.uid, title: args.title).shoppingListByTitle,
       child: Scaffold(

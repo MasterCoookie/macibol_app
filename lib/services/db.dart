@@ -42,18 +42,9 @@ class DBService {
     return userLists.snapshots().map(_shoppingListFromSnapshot);
   }
 
-  Stream<ShoppingList> get shoppingListByTitle {
+  Stream<List<ShoppingList>> get shoppingListByTitle {
     var titleCollection = listCollection.where("title", isEqualTo: title).where("ownerUid", isEqualTo: uid);
-    var list;
-    titleCollection.snapshots().map((snapshot) {
-      print(snapshot);
-      snapshot.docs.map((doc) {
-        list = _singleListFromDoc(doc);
-        print(doc.get('title'));
-      });
-    });
-    // print(titleCollection);
-    return list;
+    return titleCollection.snapshots().map(_shoppingListFromSnapshot);
   }
 
   Future deleteShoppingList(String title) async {
