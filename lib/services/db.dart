@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:macibol/main.dart';
 import 'package:macibol/models/shopping_list.dart';
 import 'package:macibol/screens/home/shopping_lists.dart';
 
@@ -49,6 +48,17 @@ class DBService {
 
   Future deleteShoppingList(String title) async {
     return await listCollection.doc('$uid-$title').delete();
+  }
+
+  Future updateProductData(String name, double price, bool promo, bool checked, int quantity, String assocShoppingListId) async {
+    return await productCollection.doc('$assocShoppingListId-$name').set({
+      'name': name,
+      'price': price,
+      'promo': promo,
+      'checked': checked,
+      'quanitiy': quantity,
+      'assocShoppingListId': assocShoppingListId
+    });
   }
 
 }
