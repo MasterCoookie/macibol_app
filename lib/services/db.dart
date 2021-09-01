@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:macibol/models/product.dart';
 import 'package:macibol/models/shopping_list.dart';
 import 'package:macibol/screens/home/shopping_lists.dart';
 
@@ -25,7 +26,8 @@ class DBService {
         title: document.get('title'),
         done: document.get('done'),
         aisles: document.get('aisles') ?? <dynamic>[],
-        ownerUid: document.get('ownerUid')
+        ownerUid: document.get('ownerUid'),
+        documentId: document.id
       );
   }
 
@@ -59,6 +61,24 @@ class DBService {
       'quanitiy': quantity,
       'assocShoppingListId': assocShoppingListId
     });
+  }
+
+  List<Product> _productListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      return Product(
+        name: doc.get('name'),
+        price: doc.get('price'),
+        promo: doc.get('promo'),
+        checked: doc.get('checked'),
+        quantity: doc.get('quantity'),
+        assocShoppingListId: doc.get('assocShoppingListId'),
+      );
+    }).toList();
+  }
+
+  dynamic getProductsByAisle(String assocShoppingListId, String listName) {
+    return productCollection.where("uid", isEqualTo: '$assocShoppingListId-$listName')
+           .snapshots().map(_productListFromSnapshot);
   }
 
 }

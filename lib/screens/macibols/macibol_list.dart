@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:macibol/loading.dart';
 import 'package:macibol/models/product.dart';
 import 'package:macibol/models/shopping_list.dart';
+import 'package:macibol/models/user.dart';
 import 'package:macibol/screens/macibols/product_editor.dart';
+import 'package:macibol/screens/macibols/product_list.dart';
+import 'package:macibol/services/db.dart';
 import 'package:provider/provider.dart';
 
 class MacibolList extends StatefulWidget {
@@ -14,6 +17,8 @@ class MacibolList extends StatefulWidget {
 class _MacibolListState extends State<MacibolList> {
   @override
   Widget build(BuildContext context) {
+
+    final user = Provider.of<CustomUser>(context);
 
     void _showProductEditor(ShoppingList shoppingList) {
     showModalBottomSheet(context: context, builder: (context) {
@@ -58,7 +63,13 @@ class _MacibolListState extends State<MacibolList> {
                 ),
                 
               ),
-              // TODO - product lister
+              Container(
+                child: StreamProvider<List<Product>>.value(
+                  initialData: [],
+                  value: DBService(uid: user.uid).getProductsByAisle(shoppingList[0].documentId, shoppingList[0].title),
+                  child: ProductList(),
+                ),
+              )
             ],
           );
         },

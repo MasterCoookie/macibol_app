@@ -5,7 +5,7 @@ class Product {
   final bool promo;
   final bool checked;
   final int quantity;
-  final String assocShoppingList;
+  final String assocShoppingListId;
 
-  Product({ this.name, this.price, this.promo, this.checked, this.quantity, this.assocShoppingList });
+  Product({ this.name, this.price, this.promo, this.checked, this.quantity, this.assocShoppingListId });
 }

@@ -4,6 +4,7 @@ class ShoppingList {
   bool done;
   List<dynamic> aisles;
   final String ownerUid;
+  final String documentId;
 
-  ShoppingList({ this.title, this.done, this.aisles, this.ownerUid });
+  ShoppingList({ this.title, this.done, this.aisles, this.ownerUid, this.documentId });
 }
