@@ -7,7 +7,8 @@ import 'package:macibol/services/db.dart';
 
 class ProductEditor extends StatefulWidget {
   final ShoppingList shoppingList;
-  ProductEditor({ this.shoppingList });
+  final int index;
+  ProductEditor({ this.shoppingList, this.index });
 
   @override
   _ProductEditorState createState() => _ProductEditorState();
@@ -26,6 +27,7 @@ class _ProductEditorState extends State<ProductEditor> {
   @override
   Widget build(BuildContext context) {
 
+    // print(widget.shoppingList.aisles[widget.index]);
     final user = Provider.of<CustomUser>(context);
 
     return SingleChildScrollView(
@@ -73,7 +75,7 @@ class _ProductEditorState extends State<ProductEditor> {
                 child: Text('Dodaj', style: TextStyle(color: Colors.white),),
                 onPressed: () async {
                   if(_formKey.currentState.validate()) {
-                    await DBService(uid: user.uid).updateProductData(productName, price, promo, false, quantity, '${widget.shoppingList.ownerUid}-${widget.shoppingList.title}');
+                    await DBService(uid: user.uid).updateProductData(productName, price, promo, false, quantity, '${widget.shoppingList.ownerUid}-${widget.shoppingList.title}', widget.shoppingList.aisles[widget.index]);
                   }
                   Navigator.pop(context);
                 },

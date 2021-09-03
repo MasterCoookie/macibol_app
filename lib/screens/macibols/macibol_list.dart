@@ -20,11 +20,11 @@ class _MacibolListState extends State<MacibolList> {
 
     final user = Provider.of<CustomUser>(context);
 
-    void _showProductEditor(ShoppingList shoppingList) {
+    void _showProductEditor(ShoppingList shoppingList, int index) {
     showModalBottomSheet(context: context, builder: (context) {
       return Container(
         padding: EdgeInsets.symmetric(vertical: 20, horizontal: 60),
-        child: ProductEditor(shoppingList: shoppingList),
+        child: ProductEditor(shoppingList: shoppingList, index: index),
       );
     });
   }
@@ -33,9 +33,12 @@ class _MacibolListState extends State<MacibolList> {
     if(shoppingList == null) {
       return Loading();
     }
+    print(shoppingList[0].documentId);
 
     return Container(
       child: ListView.builder(
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
         // padding: EdgeInsets.all(8),
         itemCount: shoppingList[0].aisles.length,
         itemBuilder: (BuildContext context, int index) {
@@ -55,7 +58,7 @@ class _MacibolListState extends State<MacibolList> {
                       IconButton(
                         icon: Icon(Icons.add),
                         onPressed: () {
-                          _showProductEditor(shoppingList[0]);
+                          _showProductEditor(shoppingList[0], index);
                         },
                       )
                     ],
@@ -66,7 +69,7 @@ class _MacibolListState extends State<MacibolList> {
               Container(
                 child: StreamProvider<List<Product>>.value(
                   initialData: [],
-                  value: DBService(uid: user.uid).getProductsByAisle(shoppingList[0].documentId, shoppingList[0].title),
+                  value: DBService(uid: user.uid).getProductsByAisle(shoppingList[0].documentId, shoppingList[0].aisles[index]),
                   child: ProductList(),
                 ),
               )

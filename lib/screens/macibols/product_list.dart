@@ -14,19 +14,19 @@ class _ProductListState extends State<ProductList> {
   Widget build(BuildContext context) {
 
     final productList = Provider.of<List<Product>>(context) ?? [];
+    print(productList.length);
 
-    return Flexible(
-      child: ListView.builder(
-        padding: EdgeInsets.all(10),
-        itemCount: productList.length,
-        itemBuilder: (context, index) {
-          return Card(
-            child: ListTile(
-              title: Text(productList[index].name),
-            ),
-          );
-        },
-      ),
+    return ListView.builder(
+      shrinkWrap: true,
+      padding: EdgeInsets.all(10),
+      itemCount: productList.length,
+      itemBuilder: (context, index) {
+        return Card(
+          child: ListTile(
+            title: Text(productList[index].name),
+          ),
+        );
+      },
     );
   }
 }

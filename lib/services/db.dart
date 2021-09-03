@@ -52,32 +52,36 @@ class DBService {
     return await listCollection.doc('$uid-$title').delete();
   }
 
-  Future updateProductData(String name, double price, bool promo, bool checked, int quantity, String assocShoppingListId) async {
+  Future updateProductData(String name, double price, bool promo, bool checked, int quantity, String assocShoppingListId, String aisle) async {
     return await productCollection.doc('$assocShoppingListId-$name').set({
       'name': name,
       'price': price,
       'promo': promo,
       'checked': checked,
-      'quanitiy': quantity,
-      'assocShoppingListId': assocShoppingListId
+      'quantity': quantity,
+      'assocShoppingListId': assocShoppingListId,
+      'aisle': aisle
     });
   }
 
   List<Product> _productListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
       return Product(
-        name: doc.get('name'),
-        price: doc.get('price'),
-        promo: doc.get('promo'),
-        checked: doc.get('checked'),
-        quantity: doc.get('quantity'),
-        assocShoppingListId: doc.get('assocShoppingListId'),
+        name: doc.get('name') ?? "err",
+        price: doc.get('price') ?? 0,
+        promo: doc.get('promo')  ?? false,
+        checked: doc.get('checked') ?? false,
+        quantity: doc.get('quantity') ?? 0,
+        assocShoppingListId: doc.get('assocShoppingListId') ?? 'err',
+        aisle: doc.get('aisle') ?? 'err',
       );
     }).toList();
   }
 
-  dynamic getProductsByAisle(String assocShoppingListId, String listName) {
-    return productCollection.where("uid", isEqualTo: '$assocShoppingListId-$listName')
+  dynamic getProductsByAisle(String assocShoppingListId, String aisleName) {
+    print(assocShoppingListId);
+    return productCollection.where("assocShoppingListId", isEqualTo: assocShoppingListId)
+           .where("aisle", isEqualTo: aisleName)
            .snapshots().map(_productListFromSnapshot);
   }
 
