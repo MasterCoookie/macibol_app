@@ -3,6 +3,7 @@ import 'package:macibol/services/db.dart';
 import 'package:provider/provider.dart';
 import 'package:macibol/models/product.dart';
 import 'package:macibol/models/user.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 
 class ProductList extends StatefulWidget {
@@ -31,10 +32,18 @@ class _ProductListState extends State<ProductList> {
           child: ListTile(
             title: Text(productList[index].name, style: productList[index].checked ? TextStyle(decoration: TextDecoration.lineThrough) : null),
             onTap: () async {
+              
               await db.updateProductData(productList[index].name, productList[index].price, productList[index].promo, !productList[index].checked, productList[index].quantity, productList[index].assocShoppingListId, productList[index].aisle);
             },
             onLongPress: () async {
               await db.deleteProduct(productList[index].prodId);
+              return Fluttertoast.showToast(
+                msg: 'Usunięto pomyślnie',
+                toastLength: Toast.LENGTH_SHORT,
+                backgroundColor: Colors.green[400],
+                textColor: Colors.white,
+                fontSize: 16
+              );
             },
           ),
           

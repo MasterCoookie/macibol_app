@@ -45,8 +45,10 @@ class _MacibolListState extends State<MacibolList> {
           return Column(
             children: [
               Card(
+                
                 margin: EdgeInsets.fromLTRB(1, 6, 1, 1),
                 child: ListTile(
+                  title: Text(shoppingList[0].aisles[index], style: TextStyle(fontSize: 18),),
                   leading: CircleAvatar(
                     radius: 20,
                     backgroundColor: Colors.green[400],
