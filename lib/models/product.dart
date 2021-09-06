@@ -7,6 +7,7 @@ class Product {
   final int quantity;
   final String assocShoppingListId;
   final String aisle;
+  String prodId;
 
-  Product({ this.name, this.price, this.promo, this.checked, this.quantity, this.assocShoppingListId, this.aisle });
+  Product({ this.name, this.price, this.promo, this.checked, this.quantity, this.assocShoppingListId, this.aisle }) : prodId = '$assocShoppingListId-$name';
 }

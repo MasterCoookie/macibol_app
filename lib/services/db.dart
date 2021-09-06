@@ -85,4 +85,7 @@ class DBService {
            .snapshots().map(_productListFromSnapshot);
   }
 
+  Future deleteProduct(String prodId) async {
+    return await productCollection.doc(prodId).delete();
+  }
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:macibol/services/db.dart';
 import 'package:provider/provider.dart';
 import 'package:macibol/models/product.dart';
+import 'package:macibol/models/user.dart';
 
 
 class ProductList extends StatefulWidget {
@@ -13,6 +15,9 @@ class _ProductListState extends State<ProductList> {
   @override
   Widget build(BuildContext context) {
 
+    final user = Provider.of<CustomUser>(context);
+    final db = DBService(uid: user.uid);
+
     final productList = Provider.of<List<Product>>(context) ?? [];
     print(productList.length);
 
@@ -22,9 +27,15 @@ class _ProductListState extends State<ProductList> {
       itemCount: productList.length,
       itemBuilder: (context, index) {
         return Card(
+          margin: EdgeInsets.fromLTRB(8, 2, 1, 1),
           child: ListTile(
-            title: Text(productList[index].name),
+            title: Text(productList[index].name, style: productList[index].checked ? TextStyle(decoration: TextDecoration.lineThrough) : null),
+            onTap: () async {
+            },
+            onLongPress: () async {
+            },
           ),
+          
         );
       },
     );
