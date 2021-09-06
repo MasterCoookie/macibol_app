@@ -31,8 +31,10 @@ class _ProductListState extends State<ProductList> {
           child: ListTile(
             title: Text(productList[index].name, style: productList[index].checked ? TextStyle(decoration: TextDecoration.lineThrough) : null),
             onTap: () async {
+              await db.updateProductData(productList[index].name, productList[index].price, productList[index].promo, !productList[index].checked, productList[index].quantity, productList[index].assocShoppingListId, productList[index].aisle);
             },
             onLongPress: () async {
+              await db.deleteProduct(productList[index].prodId);
             },
           ),
           
