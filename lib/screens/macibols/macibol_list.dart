@@ -59,6 +59,26 @@ class _MacibolListState extends State<MacibolList> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       IconButton(
+                        icon: Icon(Icons.arrow_upward_rounded),
+                        onPressed: () {
+                          // print(shoppingList[0].aisles);
+                          if (index > 0) {
+                            shoppingList[0].aisles.insert(index - 1, shoppingList[0].aisles.removeAt(index));
+                            DBService(uid: user.uid).updateListData(shoppingList[0].title, shoppingList[0].done, shoppingList[0].aisles);
+                          }
+                        },
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.arrow_downward_rounded),
+                        onPressed: () {
+                          // print(shoppingList[0].aisles);
+                          if (index < shoppingList[0].aisles.length - 1) {
+                            shoppingList[0].aisles.insert(index + 1, shoppingList[0].aisles.removeAt(index));
+                            DBService(uid: user.uid).updateListData(shoppingList[0].title, shoppingList[0].done, shoppingList[0].aisles);
+                          }
+                        },
+                      ),
+                      IconButton(
                         icon: Icon(Icons.add),
                         onPressed: () {
                           _showProductEditor(shoppingList[0], index);
