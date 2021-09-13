@@ -40,7 +40,7 @@ class _AisleCreatorState extends State<AisleCreator> {
                 onChanged: (val) => aisleName = val,
               ), SizedBox(height: 18,),
               IconButton(
-                icon: Icon(bottom ? Icons.arrow_upward : Icons.arrow_downward),
+                icon: Icon(bottom ? Icons.arrow_downward : Icons.arrow_upward),
                 onPressed: () {
                   setState(() {
                     bottom = !bottom;                
