@@ -78,8 +78,8 @@ class DBService {
     }).toList();
   }
 
-  dynamic getProductsByAisle(String assocShoppingListId, String aisleName) {
-    print(assocShoppingListId);
+  Stream<List<Product>> getProductsByAisle(String assocShoppingListId, String aisleName) {
+    // print(assocShoppingListId);
     return productCollection.where("assocShoppingListId", isEqualTo: assocShoppingListId)
            .where("aisle", isEqualTo: aisleName)
            .snapshots().map(_productListFromSnapshot);
@@ -88,4 +88,14 @@ class DBService {
   Future deleteProduct(String prodId) async {
     return await productCollection.doc(prodId).delete();
   }
+
+  Future deleteAisleProducts(String assocShoppingListId, String aisleName) async {
+    var limitedCollection = productCollection.where("assocShoppingListId", isEqualTo: assocShoppingListId)
+           .where("aisle", isEqualTo: aisleName);
+    var snapshots = await limitedCollection.get();
+    snapshots.docs.forEach((doc) async {
+      await doc.reference.delete();   
+    });
+  }
+
 }

@@ -33,7 +33,7 @@ class _MacibolListState extends State<MacibolList> {
     if(shoppingList == null) {
       return Loading();
     }
-    print(shoppingList[0].documentId);
+    // print(shoppingList[0].documentId);
 
     return Container(
       child: ListView.builder(
@@ -42,12 +42,18 @@ class _MacibolListState extends State<MacibolList> {
         // padding: EdgeInsets.all(8),
         itemCount: shoppingList[0].aisles.length,
         itemBuilder: (BuildContext context, int index) {
+          dynamic products = DBService(uid: user.uid).getProductsByAisle(shoppingList[0].documentId, shoppingList[0].aisles[index]);
           return Column(
             children: [
               Card(
                 
                 margin: EdgeInsets.fromLTRB(1, 6, 1, 1),
                 child: ListTile(
+                  onLongPress: () async {
+                    await DBService(uid: user.uid).deleteAisleProducts(shoppingList[0].documentId, shoppingList[0].aisles[index]);
+                    shoppingList[0].aisles.removeAt(index);
+                    await DBService(uid: user.uid).updateListData(shoppingList[0].title, shoppingList[0].done, shoppingList[0].aisles);
+                  },
                   title: Text(shoppingList[0].aisles[index], style: TextStyle(fontSize: 18),),
                   leading: CircleAvatar(
                     radius: 20,
@@ -92,13 +98,13 @@ class _MacibolListState extends State<MacibolList> {
               Container(
                 child: StreamProvider<List<Product>>.value(
                   initialData: [],
-                  value: DBService(uid: user.uid).getProductsByAisle(shoppingList[0].documentId, shoppingList[0].aisles[index]),
+                  value: products,
                   child: ProductList(),
                 ),
               )
             ],
           );
-        },
+        }, // single aisle generator ends
       )
     );
   }

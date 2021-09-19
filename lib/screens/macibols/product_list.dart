@@ -20,7 +20,7 @@ class _ProductListState extends State<ProductList> {
     final db = DBService(uid: user.uid);
 
     final productList = Provider.of<List<Product>>(context) ?? [];
-    print(productList.length);
+    // print(productList.length);
 
     return ListView.builder(
       shrinkWrap: true,
