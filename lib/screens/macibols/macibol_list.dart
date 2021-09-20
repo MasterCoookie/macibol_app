@@ -10,6 +10,11 @@ import 'package:provider/provider.dart';
 
 class MacibolList extends StatefulWidget {
 
+  double listSum;
+  Function callback;
+
+  MacibolList({ this.listSum, this.callback });
+
   @override
   _MacibolListState createState() => _MacibolListState();
 }
@@ -99,7 +104,7 @@ class _MacibolListState extends State<MacibolList> {
                 child: StreamProvider<List<Product>>.value(
                   initialData: [],
                   value: products,
-                  child: ProductList(),
+                  child: ProductList(listSum: widget.listSum, callback: widget.callback,),
                 ),
               )
             ],

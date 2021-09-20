@@ -8,6 +8,12 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 class ProductList extends StatefulWidget {
 
+  double listSum;
+  Function callback;
+  
+
+  ProductList({ this.listSum, this.callback });
+
   @override
   _ProductListState createState() => _ProductListState();
 }
@@ -15,6 +21,7 @@ class ProductList extends StatefulWidget {
 class _ProductListState extends State<ProductList> {
   @override
   Widget build(BuildContext context) {
+
 
     final user = Provider.of<CustomUser>(context);
     final db = DBService(uid: user.uid);
@@ -27,12 +34,15 @@ class _ProductListState extends State<ProductList> {
       padding: EdgeInsets.all(10),
       itemCount: productList.length,
       itemBuilder: (context, index) {
+        widget.callback((productList[index].price*productList[index].quantity));
+
         return Card(
           margin: EdgeInsets.fromLTRB(8, 2, 1, 1),
           child: ListTile(
             title: Text(productList[index].name, style: productList[index].checked ? TextStyle(decoration: TextDecoration.lineThrough) : null),
+            trailing: Text("${productList[index].quantity.toString()} x ${productList[index].price..toStringAsFixed(2)}zł (${(productList[index].price*productList[index].quantity).toStringAsFixed(2)}zł)",
+                           style: productList[index].checked ? TextStyle(decoration: TextDecoration.lineThrough) : null),
             onTap: () async {
-              
               await db.updateProductData(productList[index].name, productList[index].price, productList[index].promo, !productList[index].checked, productList[index].quantity, productList[index].assocShoppingListId, productList[index].aisle);
             },
             onLongPress: () async {

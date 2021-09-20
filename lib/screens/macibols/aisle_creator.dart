@@ -53,7 +53,6 @@ class _AisleCreatorState extends State<AisleCreator> {
                 onPressed: () async {
                   if(_formKey.currentState.validate()) {
                     widget.shoppingList.aisles.insert(bottom ? widget.shoppingList.aisles.length : 0 ,aisleName);
-                    // print(aisleName);
                     await DBService(uid: user.uid).updateListData(widget.shoppingList.title, widget.shoppingList.done, widget.shoppingList.aisles);
                   }
                   Navigator.pop(context);

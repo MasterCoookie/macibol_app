@@ -15,6 +15,14 @@ class Macibol extends StatefulWidget {
 
 class _MacibolState extends State<Macibol> {
 
+  double listSum = 0;
+
+  callback(double newListSum) {
+    // setState(() {
+      listSum += newListSum;
+    // });
+  }
+
   void _showAisleCreationPanel(ShoppingList shoppingList) {
     showModalBottomSheet(context: context, builder: (context) {
       return Container(
@@ -38,14 +46,14 @@ class _MacibolState extends State<Macibol> {
           elevation: 0,
           title: Text(args.title),
           actions: [
-            // IconButton(icon: Icon(Icons.arrow_back), onPressed: () {})
+            Text("Przewidywana suma: ${listSum.toStringAsFixed(2)}"),
           ],
         ),
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
           onPressed: () { _showAisleCreationPanel(args); },
         ),
-        body: MacibolList(),
+        body: MacibolList(listSum: listSum, callback: callback),
       ),
     );
   }
