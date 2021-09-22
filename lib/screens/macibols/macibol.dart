@@ -8,18 +8,23 @@ import 'package:provider/provider.dart';
 
 
 class Macibol extends StatefulWidget {
+  
 
   @override
   _MacibolState createState() => _MacibolState();
 }
 
 class _MacibolState extends State<Macibol> {
+  
 
   double listSum = 0;
+  bool unlocked = true;
+
 
   callback(double newListSum) {
     // setState(() {
-      listSum += newListSum;
+      listSum += newListSum.toDouble() ?? 0;
+      // print(listSum);
     // });
   }
 
@@ -37,16 +42,23 @@ class _MacibolState extends State<Macibol> {
 
     final args = ModalRoute.of(context).settings.arguments as ShoppingList;
     final user = Provider.of<CustomUser>(context);
-
+    final db = DBService(uid: user.uid, title: args.title);
     return StreamProvider<List<ShoppingList>>.value(
       initialData: null,
-      value: DBService(uid: user.uid, title: args.title).shoppingListByTitle,
+      value: db.shoppingListByTitle,
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,
           title: Text(args.title),
           actions: [
-            Text("Przewidywana suma: ${listSum.toStringAsFixed(2)}"),
+            StreamBuilder(
+              stream: db.getListSum(args),
+              builder: (BuildContext context, AsyncSnapshot<double>snapshot) {
+                return Text("Przewidywana suma: ${snapshot.hasData ? snapshot.data : "w8"}",
+                 style: TextStyle(fontSize: 18),);
+              },
+            ),
+            
           ],
         ),
         floatingActionButton: FloatingActionButton(

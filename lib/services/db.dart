@@ -98,4 +98,19 @@ class DBService {
     });
   }
 
+  Stream<double> getListSum(ShoppingList shoppingList) async* {
+    double sum = 0;
+    // print(shoppingList);
+    var limitedCollection = productCollection.where("assocShoppingListId", isEqualTo: shoppingList.documentId);
+                            // .where('ownerUid', isEqualTo: uid);
+    var snapshots = await limitedCollection.get();
+    snapshots.docs.forEach((doc) async {
+      // print('sumka');
+      // print((await doc.get('price') * await doc.get('quantity')));
+      sum += (doc.get('price') * doc.get('quantity'));
+    });
+    // print(sum);
+    yield sum;
+  }
+
 }
