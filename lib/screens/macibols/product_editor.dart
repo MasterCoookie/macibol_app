@@ -27,7 +27,6 @@ class _ProductEditorState extends State<ProductEditor> {
   @override
   Widget build(BuildContext context) {
 
-    // print(widget.shoppingList.aisles[widget.index]);
     final user = Provider.of<CustomUser>(context);
 
     return SingleChildScrollView(

@@ -10,11 +10,6 @@ import 'package:provider/provider.dart';
 
 class MacibolList extends StatefulWidget {
 
-  double listSum;
-  Function callback;
-
-  MacibolList({ this.listSum, this.callback });
-
   @override
   _MacibolListState createState() => _MacibolListState();
 }
@@ -38,7 +33,6 @@ class _MacibolListState extends State<MacibolList> {
     if(shoppingList == null) {
       return Loading();
     }
-    // print(shoppingList[0].documentId);
 
     return Container(
       child: ListView.builder(
@@ -82,7 +76,6 @@ class _MacibolListState extends State<MacibolList> {
                       IconButton(
                         icon: Icon(Icons.arrow_downward_rounded),
                         onPressed: () {
-                          // print(shoppingList[0].aisles);
                           if (index < shoppingList[0].aisles.length - 1) {
                             shoppingList[0].aisles.insert(index + 1, shoppingList[0].aisles.removeAt(index));
                             DBService(uid: user.uid).updateListData(shoppingList[0].title, shoppingList[0].done, shoppingList[0].aisles);
@@ -104,7 +97,7 @@ class _MacibolListState extends State<MacibolList> {
                 child: StreamProvider<List<Product>>.value(
                   initialData: [],
                   value: products,
-                  child: ProductList(listSum: widget.listSum, callback: widget.callback,),
+                  child: ProductList(),
                 ),
               )
             ],

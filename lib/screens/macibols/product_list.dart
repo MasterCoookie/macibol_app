@@ -8,12 +8,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 class ProductList extends StatefulWidget {
 
-  double listSum;
-  Function callback;
-  
-
-  ProductList({ this.listSum, this.callback });
-
   @override
   _ProductListState createState() => _ProductListState();
   
@@ -21,34 +15,19 @@ class ProductList extends StatefulWidget {
 
 class _ProductListState extends State<ProductList> {
 
-  double sum;  
-
-  // void initState() {
-  //   super.initState();
-  //   print(sum);
-  //   WidgetsBinding.instance.addPostFrameCallback((_) => widget.callback(sum));
-  // }
-
   @override
   Widget build(BuildContext context) {
-
-    sum = 0;
 
     final user = Provider.of<CustomUser>(context);
     final db = DBService(uid: user.uid);
 
     final productList = Provider.of<List<Product>>(context) ?? [];
-    // print(productList.length);
 
     return ListView.builder(
       shrinkWrap: true,
       padding: EdgeInsets.all(10),
       itemCount: productList.length,
       itemBuilder: (context, index) {
-        // print(productList[index].price*productList[index].quantity);
-        // sum += ;
-        widget.callback(productList[index].price*productList[index].quantity ?? 0);
-        
         return Card(
           margin: EdgeInsets.fromLTRB(8, 2, 1, 1),
           child: ListTile(
