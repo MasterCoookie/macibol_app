@@ -10,13 +10,11 @@ import 'package:provider/provider.dart';
 
 class Macibol extends StatefulWidget {
   
-
   @override
   _MacibolState createState() => _MacibolState();
 }
 
 class _MacibolState extends State<Macibol> {
-
 
   void _showAisleCreationPanel(ShoppingList shoppingList) {
     showModalBottomSheet(context: context, builder: (context) {

@@ -30,7 +30,7 @@ class _MacibolSumState extends State<MacibolSum> {
         snapshot.data.docs.forEach((doc) {
           sum += (doc.get('price') ?? 0) * (doc.get('quantity') ?? 0);
         });
-        return Text("Przewidywana suma $sum", style: TextStyle(fontSize: 20),);
+        return Center(child: Text("Przew. suma: ${sum.toStringAsFixed(2)} zł", style: TextStyle(fontSize: 18),));
 
       },
     );

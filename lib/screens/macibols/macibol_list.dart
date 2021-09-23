@@ -45,7 +45,6 @@ class _MacibolListState extends State<MacibolList> {
           return Column(
             children: [
               Card(
-                
                 margin: EdgeInsets.fromLTRB(1, 6, 1, 1),
                 child: ListTile(
                   onLongPress: () async {
