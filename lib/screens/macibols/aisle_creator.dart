@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:macibol/constants.dart';
+import 'package:macibol/loading.dart';
 import 'package:macibol/models/shopping_list.dart';
 import 'package:provider/provider.dart';
 import 'package:macibol/models/user.dart';
@@ -7,8 +8,8 @@ import 'package:macibol/services/db.dart';
 
 class AisleCreator extends StatefulWidget {
 
-  final ShoppingList shoppingList;
-  AisleCreator({ this.shoppingList });
+  // final ShoppingList shoppingList;
+  // AisleCreator({ this.shoppingList });
 
   @override
   _AisleCreatorState createState() => _AisleCreatorState();
@@ -25,6 +26,10 @@ class _AisleCreatorState extends State<AisleCreator> {
   Widget build(BuildContext context) {
 
     final user = Provider.of<CustomUser>(context);
+    final shoppingList = Provider.of<List<ShoppingList>>(context) ?? null;
+    if(shoppingList == null) {
+      return Loading();
+    }
 
     return SingleChildScrollView(
       child: Container(
@@ -52,8 +57,8 @@ class _AisleCreatorState extends State<AisleCreator> {
                 child: Text('Stwórz', style: TextStyle(color: Colors.white),),
                 onPressed: () async {
                   if(_formKey.currentState.validate()) {
-                    widget.shoppingList.aisles.insert(bottom ? widget.shoppingList.aisles.length : 0 ,aisleName);
-                    await DBService(uid: user.uid).updateListData(widget.shoppingList.title, widget.shoppingList.done, widget.shoppingList.aisles);
+                    shoppingList[0].aisles.insert(bottom ? shoppingList[0].aisles.length : 0 ,aisleName);
+                    await DBService(uid: user.uid).updateListData(shoppingList[0].title, shoppingList[0].done, shoppingList[0].aisles);
                   }
                   Navigator.pop(context);
                 },

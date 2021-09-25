@@ -17,12 +17,7 @@ class Macibol extends StatefulWidget {
 class _MacibolState extends State<Macibol> {
 
   void _showAisleCreationPanel(ShoppingList shoppingList) {
-    showModalBottomSheet(context: context, builder: (context) {
-      return Container(
-        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 60),
-        child: AisleCreator(shoppingList: shoppingList),
-      );
-    });
+    
   }
 
   @override
@@ -44,7 +39,16 @@ class _MacibolState extends State<Macibol> {
         ),
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
-          onPressed: () { _showAisleCreationPanel(args); },
+          onPressed: () { showModalBottomSheet(context: context, builder: (context) {
+            return StreamProvider<List<ShoppingList>>.value(
+              initialData: null,
+              value: db.shoppingListByTitle,
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 60),
+                child: AisleCreator(),
+              ),
+            );
+    }); },
         ),
         body: MacibolList(),
       ),

@@ -57,7 +57,7 @@ class DBService {
       'price': price,
       'promo': promo,
       'checked': checked,
-      'quantity': quantity,
+      'quantity': quantity ?? 1,
       'assocShoppingListId': assocShoppingListId,
       'aisle': aisle
     });
