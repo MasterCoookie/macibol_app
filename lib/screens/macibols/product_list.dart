@@ -32,7 +32,7 @@ class _ProductListState extends State<ProductList> {
           margin: EdgeInsets.fromLTRB(8, 2, 1, 1),
           child: ListTile(
             title: Text(productList[index].name, style: productList[index].checked ? TextStyle(decoration: TextDecoration.lineThrough) : null),
-            trailing: Text("${productList[index].quantity.toString()} x ${productList[index].price..toStringAsFixed(2)}zł (${(productList[index].price*productList[index].quantity).toStringAsFixed(2)}zł)",
+            trailing: Text("${productList[index].quantity.toString()} x ${productList[index].price.toStringAsFixed(2)}zł (${(productList[index].price*productList[index].quantity).toStringAsFixed(2)}zł)",
                            style: productList[index].checked ? TextStyle(decoration: TextDecoration.lineThrough) : null),
             onTap: () async {
               await db.updateProductData(productList[index].name, productList[index].price, productList[index].promo, !productList[index].checked, productList[index].quantity, productList[index].assocShoppingListId, productList[index].aisle);

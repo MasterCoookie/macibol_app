@@ -47,7 +47,10 @@ class _ProductEditorState extends State<ProductEditor> {
                     child: TextFormField(
                       keyboardType: TextInputType.number,
                       decoration: textInputDecor.copyWith(hintText: "Cena"),
-                      onChanged: (val) => price = double.parse(val),
+                      onChanged: (val) {
+                        val = val.replaceAll(',', '.');
+                        price = double.parse(val);
+                      },
                     ),
                   ), SizedBox(width: 20,),
                   Expanded(

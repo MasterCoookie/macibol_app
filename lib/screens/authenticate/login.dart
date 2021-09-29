@@ -48,6 +48,7 @@ class _LoginState extends State<Login> {
               SizedBox(height: 20),
               TextFormField(
                 decoration: textInputDecor.copyWith(hintText: 'email'),
+                keyboardType: TextInputType.emailAddress,
                 validator: (val) => val.isEmpty ? 'Enter an email' : null,
                 onChanged: (val) {
                   setState(() => email = val);
