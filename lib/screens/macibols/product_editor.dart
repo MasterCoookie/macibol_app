@@ -19,7 +19,7 @@ class _ProductEditorState extends State<ProductEditor> {
   String productName;
   double price;
   bool promo = false;
-  int quantity;
+  double quantity;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -57,7 +57,10 @@ class _ProductEditorState extends State<ProductEditor> {
                     child: TextFormField(
                       keyboardType: TextInputType.number,
                       decoration: textInputDecor.copyWith(hintText: "Ilość"),
-                      onChanged: (val) => quantity = int.parse(val),
+                      onChanged: (val){
+                        val = val.replaceAll(',', '.');
+                        quantity = double.parse(val);
+                      },
                     ),
                   ),
                 ],

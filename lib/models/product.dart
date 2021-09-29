@@ -4,7 +4,7 @@ class Product {
   final double price;
   final bool promo;
   final bool checked;
-  final int quantity;
+  final double quantity;
   final String assocShoppingListId;
   final String aisle;
   String prodId;

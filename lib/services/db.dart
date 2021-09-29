@@ -51,7 +51,7 @@ class DBService {
     return await listCollection.doc('$uid-$title').delete();
   }
 
-  Future updateProductData(String name, double price, bool promo, bool checked, int quantity, String assocShoppingListId, String aisle) async {
+  Future updateProductData(String name, double price, bool promo, bool checked, double quantity, String assocShoppingListId, String aisle) async {
     return await productCollection.doc('$assocShoppingListId-$name').set({
       'name': name,
       'price': price,
@@ -70,7 +70,7 @@ class DBService {
         price: doc.get('price') ?? 0,
         promo: doc.get('promo')  ?? false,
         checked: doc.get('checked') ?? false,
-        quantity: doc.get('quantity') ?? 0,
+        quantity: doc.get('quantity') ?? 0.0,
         assocShoppingListId: doc.get('assocShoppingListId') ?? 'err',
         aisle: doc.get('aisle') ?? 'err',
       );

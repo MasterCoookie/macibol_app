@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:macibol/models/shopping_list.dart';
-import 'package:macibol/constants.dart';
 import 'package:macibol/services/db.dart';
 import 'package:macibol/models/user.dart';
 import 'package:provider/provider.dart';
