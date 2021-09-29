@@ -97,4 +97,11 @@ class DBService {
     });
   }
 
+  Future<bool> findExistingProudcts(ShoppingList shoppingList, String prodName) async {
+    var limitedCollection = productCollection.where("assocShoppingListId", isEqualTo: shoppingList.documentId)
+                                             .where("name", isEqualTo: prodName);
+    var snapshots = await limitedCollection.get();
+    return snapshots.docs.length != 0;
+  }
+
 }

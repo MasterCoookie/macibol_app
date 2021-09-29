@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:macibol/constants.dart';
 import 'package:macibol/models/shopping_list.dart';
 import 'package:macibol/models/user.dart';
@@ -28,6 +29,7 @@ class _ProductEditorState extends State<ProductEditor> {
   Widget build(BuildContext context) {
 
     final user = Provider.of<CustomUser>(context);
+    final db = DBService(uid: user.uid);
 
     return SingleChildScrollView(
       child: Container(
@@ -80,9 +82,20 @@ class _ProductEditorState extends State<ProductEditor> {
                 child: Text('Dodaj', style: TextStyle(color: Colors.white),),
                 onPressed: () async {
                   if(_formKey.currentState.validate()) {
-                    await DBService(uid: user.uid).updateProductData(productName, price, promo, false, quantity, '${widget.shoppingList.ownerUid}-${widget.shoppingList.title}', widget.shoppingList.aisles[widget.index]);
+                    if(await db.findExistingProudcts(widget.shoppingList, productName)) {
+                      Fluttertoast.showToast(
+                        msg: 'Taki produkt już istnieje',
+                        toastLength: Toast.LENGTH_SHORT,
+                        backgroundColor: Colors.green[400],
+                        textColor: Colors.white,
+                        fontSize: 16
+                      );
+                    } else {
+                      await db.updateProductData(productName, price, promo, false, quantity, '${widget.shoppingList.ownerUid}-${widget.shoppingList.title}', widget.shoppingList.aisles[widget.index]);
+                      Navigator.pop(context);
+                    }
                   }
-                  Navigator.pop(context);
+                  
                 },
               )
             ],
