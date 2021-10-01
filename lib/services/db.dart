@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:macibol/models/product.dart';
 import 'package:macibol/models/shopping_list.dart';
+import 'package:macibol/models/template.dart';
 
 class DBService {
 
@@ -10,6 +11,7 @@ class DBService {
 
   final CollectionReference listCollection = FirebaseFirestore.instance.collection('shopping_lists');
   final CollectionReference productCollection = FirebaseFirestore.instance.collection('products');
+  final CollectionReference templateCollection = FirebaseFirestore.instance.collection('templates');
 
   Future updateListData(String title, bool done, List<dynamic> aisles) async {
     return await listCollection.doc('$uid-$title').set({
@@ -32,7 +34,6 @@ class DBService {
 
   List<ShoppingList> _shoppingListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
-      // print(doc.get('title'));
       return _singleListFromDoc(doc);
     }).toList();
   }
@@ -78,7 +79,6 @@ class DBService {
   }
 
   Stream<List<Product>> getProductsByAisle(String assocShoppingListId, String aisleName) {
-    // print(assocShoppingListId);
     return productCollection.where("assocShoppingListId", isEqualTo: assocShoppingListId)
            .where("aisle", isEqualTo: aisleName)
            .snapshots().map(_productListFromSnapshot);
@@ -102,6 +102,18 @@ class DBService {
                                              .where("name", isEqualTo: prodName);
     var snapshots = await limitedCollection.get();
     return snapshots.docs.length != 0;
+  }
+
+  Future updateTemplateData(String name, List<dynamic> aisles, String documentId) async {
+    return await templateCollection.doc(documentId).set({
+      'ownerUid': uid,
+      'name': name,
+      'aisles': aisles,      
+    });
+  }
+
+  Future getUserTemplates() async {
+    
   }
 
 }

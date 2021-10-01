@@ -15,17 +15,6 @@ class _ShoppingListsState extends State<ShoppingLists> {
 
     final shoppingLists = Provider.of<List<ShoppingList>>(context) ?? [];
 
-   
-
-    
-
-    // if(shoppingLists != null) {
-    //   shoppingLists.forEach((element) {
-    //     print(element.title);
-    //     print(element.aisles);
-    //   });
-    // }
-
     return Flexible(
       child: ListView.builder(
         itemCount: shoppingLists.length,

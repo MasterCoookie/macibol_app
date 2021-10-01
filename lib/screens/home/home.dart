@@ -55,9 +55,9 @@ class _HomeState extends State<Home> {
             children: [
               ShoppingLists(),
               ElevatedButton(
-                child: Text('Nowa Lista Zakupowa'),
+                child: Text('Nowa Lista'),
                 onPressed: () => _showListCreationPanel(),
-              )
+              ),
           ],),
         ),
       ),

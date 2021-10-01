@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:macibol/models/shopping_list.dart';
 import 'package:macibol/services/db.dart';
 import 'package:macibol/models/user.dart';
@@ -25,6 +26,7 @@ class _ListEditorState extends State<ListEditor> {
   Widget build(BuildContext context) {
 
     final user = Provider.of<CustomUser>(context);
+    final db = DBService(uid: user.uid);
 
     return SingleChildScrollView(
       child: Container(
@@ -44,8 +46,23 @@ class _ListEditorState extends State<ListEditor> {
                     checkboxVal = val;                  
                   });
                   if(_formKey.currentState.validate()) {
-                    await DBService(uid: user.uid).updateListData(widget.shoppingList.title, checkboxVal, widget.shoppingList.aisles);
+                    await db.updateListData(widget.shoppingList.title, checkboxVal, widget.shoppingList.aisles);
                   }
+                  Navigator.pop(context);
+                },
+              ),SizedBox(height: 20,),
+              TextButton.icon(
+                icon: Icon(Icons.download_sharp),
+                label: Text('Wyeksportuj Templatkę Sklepu'),
+                onPressed: () async {
+                  await db.updateTemplateData((widget.shoppingList.title + " - Template"), widget.shoppingList.aisles, null);
+                  Fluttertoast.showToast(
+                    msg: 'Wyeksportowano pomyślnie',
+                    toastLength: Toast.LENGTH_SHORT,
+                    backgroundColor: Colors.green[400],
+                    textColor: Colors.white,
+                    fontSize: 16
+                  );
                   Navigator.pop(context);
                 },
               ),SizedBox(height: 20,),
@@ -53,7 +70,7 @@ class _ListEditorState extends State<ListEditor> {
                 icon: Icon(Icons.delete),
                 label: Text('Usuń (Przytrzymaj)'),
                 onLongPress: () async {
-                  await DBService(uid: user.uid).deleteShoppingList(widget.shoppingList.title);
+                  await db.deleteShoppingList(widget.shoppingList.title);
                   Navigator.pop(context);
                 },
                 onPressed: () {},
