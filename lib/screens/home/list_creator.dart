@@ -32,7 +32,7 @@ class _ListCreatorState extends State<ListCreator> {
   Widget build(BuildContext context) {
 
     final user = Provider.of<CustomUser>(context);
-    var templateCollection = FirebaseFirestore.instance.collection('templates');
+    var templateCollection = FirebaseFirestore.instance.collection('templates').where('ownerUid', isEqualTo: user.uid);
     
 
     return SingleChildScrollView(
@@ -54,7 +54,6 @@ class _ListCreatorState extends State<ListCreator> {
                   future: templateCollection.get(),
                   builder: (BuildContext context, var snapshot) {
                     if (snapshot.connectionState == ConnectionState.done) {
-                        // return Template(ownerUid: doc.get('ownerUid'), name: doc.get('name'), aisles: doc.get('aisles'), documentId: doc.id);
                         var docs = snapshot.data.docs;
                         var docsList = docs.map((doc) {
                           return DropdownMenuItem(
@@ -74,7 +73,6 @@ class _ListCreatorState extends State<ListCreator> {
                       );
                     }
                     return Loading();
-
                   }
                 ),
               ElevatedButton(
