@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:macibol/models/product.dart';
 import 'package:macibol/models/shopping_list.dart';
-import 'package:macibol/models/template.dart';
 
 class DBService {
 
@@ -111,9 +110,4 @@ class DBService {
       'aisles': aisles,      
     });
   }
-
-  Future getUserTemplates() async {
-    
-  }
-
 }

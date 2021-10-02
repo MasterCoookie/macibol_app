@@ -8,9 +8,6 @@ import 'package:macibol/services/db.dart';
 
 class AisleCreator extends StatefulWidget {
 
-  // final ShoppingList shoppingList;
-  // AisleCreator({ this.shoppingList });
-
   @override
   _AisleCreatorState createState() => _AisleCreatorState();
 }

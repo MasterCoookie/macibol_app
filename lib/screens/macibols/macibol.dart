@@ -16,9 +16,6 @@ class Macibol extends StatefulWidget {
 
 class _MacibolState extends State<Macibol> {
 
-  void _showAisleCreationPanel(ShoppingList shoppingList) {
-    
-  }
 
   @override
   Widget build(BuildContext context) {

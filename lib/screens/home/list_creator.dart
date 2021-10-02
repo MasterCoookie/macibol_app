@@ -9,17 +9,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ListCreator extends StatefulWidget {
 
-
   @override
   _ListCreatorState createState() => _ListCreatorState();
 }
 
 class _ListCreatorState extends State<ListCreator> {
 
-  List<Template> getTemplates(CustomUser user) {
-    
-    
-  }
 
   String listName;
 

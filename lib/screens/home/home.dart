@@ -42,7 +42,6 @@ class _HomeState extends State<Home> {
           elevation: 0,
           title: Text('Zakupki czekają', style: TextStyle(color: Colors.black)),
           actions: <Widget>[
-            
             TextButton.icon(
               icon: Icon(Icons.exit_to_app, color: Colors.black),
               label: Text('Log Out', style: TextStyle(color: Colors.black)),

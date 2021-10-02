@@ -15,7 +15,6 @@ class AuthService {
     return user != null ? CustomUser(uid: user.uid) : null;
   }
 
-  // TODO sign in anon
   Future signInAnon() async {
     try {
       UserCredential result = await _auth.signInAnonymously();
@@ -27,7 +26,6 @@ class AuthService {
     }
   }
 
-  // TODO sign in email/pwd
   Future loginWithEmailPwd(String email, String password) async {
     try {
       UserCredential result = await _auth.signInWithEmailAndPassword(email: email, password: password);
@@ -41,7 +39,6 @@ class AuthService {
   }
 
 
-  // TODO register email/pwd
   Future registerWithEmailPwd(String email, String password) async {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
@@ -54,7 +51,6 @@ class AuthService {
     }
   }
 
-  // TODO logout
   Future logOut() async {
     try {
       return await _auth.signOut();
